@@ -1,0 +1,36 @@
+# ~/.tmuxinator/tb3.yml
+
+name: tb3_slam
+root: ~/
+windows:
+  - ros_local:
+      layout: even-vertical
+      panes:
+        - sim:
+          - cd ~/catkin_ws/
+          - sleep 2
+          - roslaunch turtlebot3_gazebo turtlebot3_world.launch
+        - rviz:
+          - cd ~/catkin_ws/
+          - sleep 10
+          - roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map.yaml
+
+
+
+#  - ros_remote:
+#      layout: even-vertical
+#      panes:
+#        - robot:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 2
+#          - roslaunch turtlebot3_bringup turtlebot3_robot.launch
+#        - lidar:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 2
+#        - rpicam:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 7
+#          - roslaunch turtlebot3_bringup turtlebot3_rpicamera.launch

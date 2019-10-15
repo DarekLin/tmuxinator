@@ -1,0 +1,62 @@
+# ~/.tmuxinator/tb3_createMaps.yml
+
+name: tb3_createMaps
+root: ~/
+windows:
+  - ros_local:
+      layout: even-vertical
+      panes:
+        - sim:
+          - cd ~/catkin_ws/
+          - sleep 2
+          - roslaunch turtlebot3_gazebo turtlebot3_world.launch
+        - rviz:
+          - cd ~/catkin_ws/
+          - sleep 10
+          - roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
+        - teleop:
+          - cd ~/catkin_ws/
+          - sleep 10
+          - roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+        - map:
+          - cd ~/catkin_ws/
+          - sleep 10
+          - rosrun map_server map_saver -f ~/mapTmp
+        - guard:
+          layout: tiled
+          pre:
+              - echo "I get run in each pane."
+              - echo "Before each pane command!"
+          panes:
+              -
+              - #empty, will just run plain bash
+              -
+
+#        - logs: tail -f /var/log/syslog
+
+#      layout: even-horizontal
+#      panes:
+#        - remote:
+#          - cd ~/catkin_ws/
+#          - sleep 10
+#          - rostopic list
+
+
+
+#  - ros_remote:
+#      layout: even-vertical
+#      panes:
+#        - robot:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 2
+#          - roslaunch turtlebot3_bringup turtlebot3_robot.launch
+#        - lidar:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 2
+#        - rpicam:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 7
+#          - roslaunch turtlebot3_bringup turtlebot3_rpicamera.launch

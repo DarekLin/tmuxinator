@@ -1,0 +1,57 @@
+# ~/.tmuxinator/air_tut1.yml
+
+name: air_tut1
+root: ~/
+windows:
+  - ros_local:
+      layout: even-vertical
+      panes:
+        - airsim_node:
+          - cd /home/darlin/AirSim/ros
+          - source devel/setup.bash
+          - sleep 2
+          - roslaunch airsim_ros_pkgs airsim_node.launch
+        - rviz:
+          - cd /home/darlin/AirSim/ros
+          - source devel/setup.bash
+          - sleep 7
+          - roslaunch airsim_tutorial_pkgs front_stereo_and_center_mono.launch
+        - teleop:
+          - cd /home/darlin/AirSim/ros
+          - source devel/setup.bash
+          - sleep 11
+          - roslaunch airsim_teleop teleop_twist_keyboard.launch
+        - rostopic:
+          - cd /home/darlin/AirSim/ros
+          - sleep 14
+          - rostopic list
+
+
+#        - logs: tail -f /var/log/syslog
+
+#      layout: even-horizontal
+#      panes:
+#        - remote:
+#          - cd ~/catkin_ws/
+#          - sleep 10
+#          - rostopic list
+
+
+
+#  - ros_remote:
+#      layout: even-vertical
+#      panes:
+#        - robot:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 2
+#          - roslaunch turtlebot3_bringup turtlebot3_robot.launch
+#        - lidar:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 2
+#        - rpicam:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 7
+#          - roslaunch turtlebot3_bringup turtlebot3_rpicamera.launch

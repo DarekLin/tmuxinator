@@ -1,0 +1,45 @@
+# ~/.tmuxinator/px4_ros.yml
+
+name: px4_ros
+root: ~/
+windows:
+  - ros_local:
+      layout: even-vertical
+      panes:
+        - mavros:
+          - cd ~/catkin_ws/
+          - sleep 2
+          - roslaunch mavros px4.launch fcu_url:="udp://:14540@127.0.0.1:14557"
+        - px4_sitl:
+          - cd ~/PX4/Firmware
+          - sleep 10
+          - no_sim=1 make px4_sitl_default gazebo
+        - px4_sitl:
+          - cd ~/PX4/Firmware
+          - sleep 10
+          - source Tools/setup_gazebo.bash $(pwd) $(pwd)/build/px4_sitl_default
+          - roslaunch gazebo_ros empty_world.launch world_name:=$(pwd)/Tools/sitl_gazebo/worlds/iris.world
+        - QGroundControl:
+          - cd ~/Pobrane
+          - sleep 10
+          - ./QGroundControl.AppImage
+
+
+
+#  - ros_remote:
+#      layout: even-vertical
+#      panes:
+#        - robot:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 2
+#          - roslaunch turtlebot3_bringup turtlebot3_robot.launch
+#        - lidar:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 2
+#        - rpicam:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 7
+#          - roslaunch turtlebot3_bringup turtlebot3_rpicamera.launch
