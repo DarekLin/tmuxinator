@@ -1,0 +1,41 @@
+# ~/.tmuxinator/px4_ros_avoid_gp_gazebo.yml
+
+name: px4_ros_avoid_gp_gazebo
+root: ~/
+windows:
+  - ros_local:
+      layout: even-vertical
+      panes:
+        - global_planer:
+          - cd ~/catkin_ws
+          - sleep 2
+          - roslaunch global_planner global_planner_stereo.launch
+        - ofboard:
+          - cd ~/catkin_ws
+          - sleep 10
+          - gz camera --camera-name=gzclient_camera --follow=iris
+          - sleep 12
+          - rosrun mavros mavsys mode -c OFFBOARD
+          - sleep 15
+          - rosrun mavros mavsafety arm
+          
+          
+
+
+#  - ros_remote:
+#      layout: even-vertical
+#      panes:
+#        - robot:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 2
+#          - roslaunch turtlebot3_bringup turtlebot3_robot.launch
+#        - lidar:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 2
+#        - rpicam:
+#          - ssh pi@turtle
+#          - cd ~/catkin_ws/
+#          - sleep 7
+#          - roslaunch turtlebot3_bringup turtlebot3_rpicamera.launch
