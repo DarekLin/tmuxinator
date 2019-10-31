@@ -1,0 +1,27 @@
+# ~/.tmuxinator/sdr_noaa.yml
+
+name: sdr_noaa
+root: ~/
+
+
+windows:
+  - noaa:
+      layout: even-vertical
+      panes:
+        - gqrx:
+          - cd /home/darlin/SDR
+          - gqrx -c noaa.conf
+        - Gpredict:
+          - cd /home/darlin/Pobrane
+          - sleep 10
+          - ./Gpredict-2.2.1.glibc2.14-x86_64.AppImage
+        - audacity:
+          - cd /home/darlin/SDR
+          - sleep 15
+          - audacity
+        - APT3000:
+          - cd /home/darlin/SDR    
+          - sleep 20
+          - google-chrome jthatch.com/APT3000/APT3000.html  
+
+

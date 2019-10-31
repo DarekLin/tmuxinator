@@ -1,0 +1,20 @@
+# ~/.tmuxinator/sdr_vhf.yml
+
+name: sdr_vhf
+root: ~/
+
+
+windows:
+  - SDR:
+      layout: even-vertical
+      panes:
+        - gqrx:
+          - cd /home/darlin/SDR
+          - gqrx
+        - rviz:
+          - cd /home/darlin/SDR
+          - sleep 20
+          - gqrx-scanner -m bookmark --tags "VHF" -d 2000
+
+
+
